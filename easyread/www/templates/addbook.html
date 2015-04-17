@@ -1,0 +1,51 @@
+<md-dialog class="md-whiteframe-z2">
+	<md-content class="no-margin">
+		<form name="form">
+			<md-input-container class="no-margin padding-input-container">
+				<label>Name</label>
+				<input type="text" id="namebook" ng-model="bookname" />
+				<ng-messages ng-if="validatebookname() == true">
+					<ng-message class="text-accent">
+						Please! Enter name book
+					</ng-message>
+				</ng-messages>
+			</md-input-container>
+			<md-input-container class="no-margin padding-input-container">
+				<label>Author</label>
+				<input type="text" id="authorbook" ng-model="bookauthor" />
+				<ng-messages ng-if="validatebookauthor() == true">
+					<ng-message class="text-accent">
+						Please! Enter author book
+					</ng-message>
+				</ng-messages>
+			</md-input-container>
+			<md-input-container class="no-margin padding-input-container">
+				<label>Initial Page</label>
+				<input type="number" id="initialsheet" name="initialsheet" ng-model="initialsheet" />
+				<ng-messages ng-if="validateinitialsheet() == true">
+					<ng-message class="text-accent">
+						Please! Enter initial page
+					</ng-message>
+				</ng-messages>
+			</md-input-container>
+			<md-input-container class="no-margin padding-input-container">
+				<label>Last Page</label>
+				<input type="number" id="lastsheet" name="finalsheet" ng-model="finalsheet" />
+				<ng-messages ng-if="validate() == true">
+					<ng-message class="text-accent">
+						Don't lie to me please! :(...
+					</ng-message>
+				</ng-messages>
+			</md-input-container>
+			<ng-messages ng-if="validateerrorrequest() == true">
+				<ng-message class="text-accent">
+					<i class="ion-sad"></i> An error ocurred
+				</ng-message>
+			</ng-messages>
+		</form>
+	</md-content>
+	<div class="md-actions padding no-margin" layout="row">
+		<md-button class="md-primary" ng-click="hide()">CLOSE</md-button>
+		<md-button class="md-primary" ng-click="saveBook()">SAVE</md-button>
+	</div>
+</md-dialog>

@@ -1,0 +1,51 @@
+/* Empty. Add your own CSS if you like */
+.accentColor{background: #FF1744 !important;}
+.align-center{text-align: center !important;}
+.align-left{text-align: left !important;}
+.anchor{width: 100%;}
+.backgroundLogin {background: #D1C4E9 !important;}
+.border-bottom-primary{border-bottom: 2px solid #009688;}
+.border-bottom{border-bottom: 1px solid #DDD;}
+.button-add{width:45px !important;height:45px !important;font-size:13px !important;font-weight: 300 !important;position: absolute !important;right: 0 !important; top: -10px !important;}
+.button-background{background: #DFDFDF !important;}
+.button-login{padding: 0.3em 0.8em !important;}
+.font-margin-bottom{margin-bottom:1em !important;}
+.font-margin-top{margin-top: 1em !important;}
+.image{width:60px;}
+.inline-block{display: inline-block !important;}
+.label{color: rgba(0, 0, 0, 0.54);}
+.margin-bottom{margin-bottom: 0.6rem !important;}
+.margin-left{margin-left: 0.6rem !important;}
+.margin-top{margin-top: 0.6rem !important;}
+.no-border{border: 0 !important;}
+.no-margin{margin: 0 !important;}
+.no-padding{padding: 0 !important;}
+.normal-font{font-size:1em !important;}
+.normal-text-color{color: #424242;}
+.opacity{opacity: 0.8;}
+.padding-input-container{padding: 0 0 1.1rem 0 !important;}
+.padding{padding: 1rem !important;}
+.primaryColor > .tabs{background: #2196F3 !important;border: 0 !important;}
+.primaryColor{background: #2196F3 !important;}
+.radius{border-radius: 100% !important;}
+.relative{position: relative !important;}
+.shadowSideBar{box-shadow: -4px 0 10px rgba(20,20,20,0.3) !important;}
+.small-font{font-size:0.88em !important;}
+.small-padding{padding:0.9em !important;}
+.text-accent{color:#FF1744;}
+.text-primary-color{color: #2196F3 !important;}
+.text-white{color: #FFF !important;}
+.top-align{vertical-align: top !important;}
+input,textarea{border-bottom: 2px solid #E0E0E0 !important;-webkit-transition: border-bottom 0.3s ease ; -o-transition: border-bottom 0.3s ease; transition: border-bottom 0.3s ease; }
+input:focus,textarea:focus{border-bottom: 2px solid #2196F3 !important;}
+
+.small-icon:before{
+	font-size: 20px !important;
+}
+.grey {
+	color: #AAA;
+}
+i.icon {
+	transition: all 0.7s ease;
+}
+md-input-container.md-default-theme label{color: rgba(0,0,0,0.6);}

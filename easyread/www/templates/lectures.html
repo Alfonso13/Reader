@@ -1,0 +1,46 @@
+<ion-view title="My lectures" ng-init="initlectures()">
+	<ion-nav-buttons side="left">
+        <button class="button button-icon button-clear text-white" ng-click="back()">
+        	<i class="small-font icon ion-chevron-left"></i>
+        </button>
+    </ion-nav-buttons>
+	<ion-content>
+		<header class="primaryColor" style="padding: 1.5rem !important;">
+			<h3 class="no-margin text-white" style="font-weight: 500;" ng-bind="namebook"></h3>
+			<h4 class="no-margin text-white" style="font-weight: 500;" ng-bind="authorbook"></h4>
+		</header>
+		<div layout="column" class="small-padding">
+			<md-content>
+				<md-list>
+					<md-item ng-repeat="lecture in lectures | filter:{enable:1}">
+						<md-item-content class="border-bottom">
+				             <div class="md-tile-content no-margin">
+				             	<h3 class="no-margin normal-text-color">
+				               		<strong>
+				               			{{lecture.datelecture}}
+				               		</strong>
+				               	</h3>
+				               	<h4 class="opacity normal-text-color">{{lecture.sheets}} sheets</h4>
+				             </div>
+				             <div class="md-tile-right">
+				             	<button 
+				             		class="button-icon icon padding text-primary-color ion-stats-bars" 
+				             		data-idlecture="{{lecture.ID}}"
+				             		data-idbook="{{lecture.book}}"
+				             		ng-click="book_statics($event)">
+				             	</button>
+				             </div>
+						</md-item-content>
+					</md-item>
+					<md-item ng-hide="isbookcomplete == 1">
+						<md-item-content>
+							<div class="md-tile-content align-center">
+								<md-button class="md-primary" ng-click="addlecture()">ADD A LECTURE</md-button>
+							</div>
+						</md-item-content>
+					</md-item>
+				</md-list>
+			</md-content>
+		</div>
+	</ion-content>
+</ion-view>

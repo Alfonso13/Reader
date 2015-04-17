@@ -1,0 +1,23 @@
+<md-dialog class="md-whiteframe-z2" ng-init="initShowBook()">
+	<md-content>
+		<div style="margin-bottom:1.5em;">
+			<h4 class="align-center no-margin normal-text-color">MY PROGRESS</h4>
+			<h1 class="text-primary-color align-center no-margin" style="font-size:2.5em;"> {{ percentageBook }}% </h1>
+		</div>
+		<div style="margin-bottom:1.5em;">
+			<h4 class="no-margin align-center normal-text-color">LAST PAGE READ</h4>
+			<h1 class="text-primary-color align-center no-margin" style="font-size:2.5em;">{{lastpagereaded}}</h1>
+		</div>
+		<div>
+			<h4 class="no-margin align-center normal-text-color">BOOK PAGES</h4>
+			<h1 class="text-primary-color align-center no-margin" style="font-size:2.5em;">{{pagesbook}}</h1>
+		</div>
+		<hr>
+		<div class="align-center">
+			<md-button class="md-accent margin-top" ng-click="deleteBook()">REMOVE BOOK</md-button>
+		</div>
+	</md-content>
+	<div class="md-actions" layout="row">
+		<md-button class="md-primary" ng-click="hide()">CLOSE</md-button>
+	</div>
+</md-dialog>

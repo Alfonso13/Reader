@@ -1,0 +1,44 @@
+<ion-view title="APP">
+  <ion-content>
+    <section class="primaryColor padding">
+      <p class="text-white no-margin">MY BOOKS</p>
+      <div class="relative">
+        <md-button 
+          class="md-fab button-add accentColor text-white"
+          ng-click="addBook($event)">
+            ADD
+        </md-button>
+      </div>
+    </section>
+    <div layout="column" class="small-padding margin-top">
+      <md-content>
+        <md-list>
+         <md-item ng-repeat="item in books | filter:{enable:1}">
+           <md-item-content class="border-bottom font-margin-bottom small-padding">
+             <div 
+                class="md-tile-content no-margin no-padding" 
+                data-idbook="{{item.ID}}" ng-click="showBook($event)">
+               <h3 
+                class="margin-left normal-text-color" 
+                data-idbook="{{item.ID}}">
+                <strong 
+                  data-idbook="{{item.ID}}">{{item.name}}</strong>
+                </h3>
+               <p class="margin-left normal-text-color" style="font-size: 1rem;" data-idbook="{{item.ID}}" >{{item.author}}</p>
+             </div>
+             <div class="md-tile-right">
+                <button 
+                  class="button-icon icon ion-arrow-right-b text-primary-color" 
+                  data-idbook="{{item.ID}}" 
+                  data-namebook="{{item.name}}"
+                  data-authorbook="{{item.author}}"
+                  ng-click="lecture($event)">
+                </button>
+             </div>
+           </md-item-content>
+         </md-item>
+      </md-list>
+	    </md-content>
+	  </div>
+	</ion-content>
+</ion-view>

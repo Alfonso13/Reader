@@ -1,0 +1,23 @@
+<ion-view class="primaryColor">
+	<ion-content scroll="false" layout="row" layout-align='center center'>
+		<div flex='90'>
+			<md-content class="padding" ng-controller="FormLoginCrtl">
+				<md-input-container class="no-padding">
+		      		<label class="small-font">USER</label>
+		      		<input type="text" ng-model="user" />
+		    	</md-input-container>
+		    	<md-input-container class="no-padding">
+					<label class="small-font">PASSWORD</label>
+					<input type="password" ng-model="password" />
+		    	</md-input-container>
+		    	<br />
+		    	<p class="align-center">
+		    		<md-button class="md-primary button-login md-raised" ng-click="login()">LOGIN</md-button>
+		    	</p>
+		    	<p class="align-center">
+		    		<md-button class="md-primary small-font" ng-click="register()">I WANT TO BE PART</md-button>
+		    	</p>
+			</md-content>
+		</div>
+	</ion-content>
+</ion-view>

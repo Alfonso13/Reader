@@ -1,0 +1,57 @@
+<ion-view title="Modify my experience" ng-init="initConfigCrtl()">
+	<ion-nav-buttons side="left">
+        <button class="button button-icon button-clear text-white" ng-click="back()">
+        	<i class="small-font icon ion-chevron-left"></i>
+        </button>
+    </ion-nav-buttons>
+	<ion-content class="padding" ng-controller='ConfigUserCrtl' ng-init="initConfigCrtl()">
+		<form>
+			<div layout="row">
+				<md-input-container class="no-padding no-margin" flex="88">
+					<label>NAME</label>
+					<input type="text" ng-model="name" id="NameUser" disabled/>
+				</md-input-container>
+				<button class="button-icon grey" ng-click="editField($event)" data-idfield="NameUser" data-name="name">
+					<i class="icon small-icon ion-edit" data-idfield="NameUser" data-name="name"></i>
+				</button>
+			</div>
+			<div layout="row">
+				<md-input-container class="no-padding no-margin" flex="88">
+					<label>LASTNAME</label>
+					<input type="text" ng-model="lastname" disabled id="lastname_user" />
+				</md-input-container>
+				<button class="button-icon grey" ng-click="editField($event)" data-idfield="lastname_user" data-name="lastname">
+					<i class="icon small-icon ion-edit" data-idfield="lastname_user" data-name="lastname"></i>
+				</button>
+			</div>
+			<div layout="row">
+				<md-input-container class="no-padding no-margin" flex="88">
+					<label>EMAIL</label>
+					<input type="email" ng-model="email" disabled id="email_user" />
+				</md-input-container>
+				<button class="button-icon grey" ng-click="editField($event)" data-idfield="email_user" data-name="email">
+					<i class="icon small-icon ion-edit" data-idfield="email_user" data-name="email"></i>
+				</button>
+			</div>
+			<p></p>
+			<div layout="row">
+				<md-input-container class="no-padding no-margin" flex="88">
+					<label>USERNAME</label>
+					<input type="text" ng-model="username" data-idfield="username_user" id="username_user" disabled />
+				</md-input-container>
+				<button class="button-icon grey" ng-click="editField($event)" data-idfield="username_user" data-name="username">
+					<i class="icon small-icon ion-edit" data-idfield="username_user" data-name="username"></i>
+				</button>
+			</div>
+			<div layout="row">
+				<md-input-container class="no-padding no-margin" flex="88">
+					<label>PASSWORD</label>
+					<input type="password" ng-model="password" ng-click="inputFocusPassword($event)" id="pass_user" disabled />
+				</md-input-container>
+				<button class="button-icon grey" ng-click="editField($event)" data-idfield="pass_user" data-name="password">
+					<i class="icon small-icon ion-edit" data-idfield="pass_user" data-name="password"></i>
+				</button>
+			</div>
+		</form>
+	</ion-content>
+</ion-view>
