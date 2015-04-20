@@ -209,7 +209,11 @@ angular.module('starter', ['ionic', 'ngMaterial'])
         }
       })
       .error(function error(error){
-        console.log(error);
+        $mdToast.show({
+          template: "<md-toast class='md-whiteframe-z2'> <h3 class='no-margin text-white'>AN ERROR OCURRED</h3> </md-toast>",
+          controller: function ToastCrtl(){},
+          hideDelay: 3000
+        });
       })
     }
     else {
