@@ -363,7 +363,7 @@ angular.module('starter', ['ionic', 'ngMaterial'])
     return $scope.errorrequest;
   };
 
-  $scope.hide = function hide(){
+  $scope.hide = function hide() {
     $mdDialog.hide();
   };
   $scope.saveBook = function saveBook(){
@@ -372,8 +372,7 @@ angular.module('starter', ['ionic', 'ngMaterial'])
     if($scope.bookname != "" && $scope.bookauthor != "" && $scope.initialsheet != "" && $scope.finalsheet != "") 
     {
       if($scope.initialsheet > $scope.finalsheet || $scope.initialsheet == $scope.finalsheet) {$scope.error = true;}
-      else 
-      {
+      else {
         $scope.error = false;
         $scope.errorbookname = false;
         $scope.errorbookauthor = false;
@@ -432,7 +431,7 @@ angular.module('starter', ['ionic', 'ngMaterial'])
   $scope.lastpagereaded = 0;
   $scope.pagesbook = 0;
   $scope.initShowBook = function initShowBook(){
-    var requests = [$http.get("http://serviceread.herokuapp.com/statisticsbooks/"+locals.idbook+""),$http.get("http://serviceread.herokuapp.com/lastpagereaded/"+locals.idbook+""),$http.get("http://serviceread.herokuapp.com/pagesbook/ "+locals.idbook+"")] 
+    /*var requests = [$http.get("http://serviceread.herokuapp.com/statisticsbooks/"+locals.idbook+""),$http.get("http://serviceread.herokuapp.com/lastpagereaded/"+locals.idbook+""),$http.get("http://serviceread.herokuapp.com/pagesbook/ "+locals.idbook+"")] 
 
     $q.all(requests).then(function response(results){
       var statistics = results[0];
@@ -447,7 +446,7 @@ angular.module('starter', ['ionic', 'ngMaterial'])
       if(pagesbook.data.status == 'ok'){ $scope.pagesbook = pagesbook.data.pages;}
       else {$scope.pagesbook = ":(";}
 
-    });
+    });*/
   };
   $scope.deleteBook = function deleteBook(){
     var iduser = User.getUser().id;
