@@ -1,7 +1,21 @@
-<ion-view class="primaryColor">
+<ion-view class="">
 	<ion-content scroll="false" layout="row" layout-align='center center'>
 		<div flex='90'>
 			<md-content class="padding" ng-controller="FormLoginCrtl">
+				<p class="align-center">
+		    		<md-button class="md-primary md-fab margin-right md-raised" ng-click="loginWithFacebook()">
+			    		<button 
+		                  class="button-icon icon ion-social-facebook text-white" >
+		                </button>
+		    		</md-button>
+		    		<md-button class="md-primary md-fab margin-left md-raised" ng-click="loginWithTwitter()">
+			    		<button 
+		                  class="button-icon icon ion-social-twitter text-white" >
+		                </button>
+		    		</md-button>
+		    	</p>
+		    	<br>
+		    	<p class="align-center no-margin" style="color: #AAA;" >- OR -</p>
 				<md-input-container class="no-padding">
 		      		<label class="small-font">USER</label>
 		      		<input type="text" ng-model="user" />
@@ -14,6 +28,8 @@
 		    	<p class="align-center">
 		    		<md-button class="md-primary button-login md-raised" ng-click="login()">LOGIN</md-button>
 		    	</p>
+		    	
+		    	<hr style="border: 1px solid #EEE;" />
 		    	<p class="align-center">
 		    		<md-button class="md-primary small-font" ng-click="register()">I WANT TO BE PART</md-button>
 		    	</p>

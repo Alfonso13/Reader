@@ -1,19 +1,22 @@
 <ion-view title="APP">
   <ion-content>
     <section class="primaryColor padding">
-      <p class="text-white no-margin">MY BOOKS</p>
+      <p class="text-white no-margin">My Books</p>
       <div class="relative">
         <md-button 
           class="md-fab button-add accentColor text-white"
           ng-click="addBook($event)">
-            ADD
+            <h1 class="no-margin no-padding text-white">+</h1>
         </md-button>
       </div>
     </section>
-    <div layout="column" class="margin-top">
-      <md-content>
-        <md-list>
+    <div layout="column">
+      <md-content style="margin-top: 1.4em;">
+        <md-list >
          <md-item ng-repeat="item in books | filter:{enable:1}">
+           <div layout="row" layout-align="space-around" ng-show="item.ID == showProgressCircular">
+            <md-progress-circular md-mode="indeterminate" style="position: absolute;"></md-progress-circular>
+           </div>
            <md-item-content class="border-bottom font-margin-bottom small-padding">
              <div 
                 class="md-tile-content no-margin no-padding" 
@@ -24,7 +27,7 @@
                 <strong 
                   data-idbook="{{item.ID}}">{{item.name}}</strong>
                 </h3>
-               <p class="margin-left normal-text-color" style="font-size: 1rem;" data-idbook="{{item.ID}}" >{{item.author}}</p>
+                <p class="margin-left normal-text-color" style="font-size: 1rem;" data-idbook="{{item.ID}}" >{{item.author}}</p>
              </div>
              <div class="md-tile-right">
                 <button 
@@ -34,11 +37,11 @@
                   data-authorbook="{{item.author}}"
                   ng-click="lecture($event)">
                 </button>
-             </div>
-           </md-item-content>
-         </md-item>
-      </md-list>
-            </md-content>
+              </div>
+            </md-item-content>
+          </md-item>
+        </md-list>
+      </md-content>
 	  </div>
 	</ion-content>
 </ion-view>

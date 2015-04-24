@@ -97,7 +97,7 @@ angular.module('starter', ['ionic', 'ngMaterial'])
     }
   })
   .state('app.lectures', {
-    url: '/app/lectures',
+    url: '/app/lectures/:data',
     cache:false,
     views: {
       'content': {
@@ -117,6 +117,10 @@ angular.module('starter', ['ionic', 'ngMaterial'])
 
   $scope.user = null;
   $scope.password = null;
+
+  $scope.loginWithFacebook = function loginWithFacebook(){
+    
+  };
 
   $scope.login = function login(){
     if( $scope.user != "" && $scope.password != "" ) {
@@ -231,8 +235,6 @@ angular.module('starter', ['ionic', 'ngMaterial'])
 .controller('CrtlMenu', function CrtlMenu($scope,$state,User,$mdToast,$timeout,$http){
   $scope.config = function config(){
     $state.go("app.configuration");
-    /**/
-    
   };
   $scope.logout = function logout(){
     User.destroyUser();
@@ -253,10 +255,12 @@ angular.module('starter', ['ionic', 'ngMaterial'])
     $state.go("app.viewlecture");
   };
 })
-.controller('BooksCrtl', function BooksCrtl($scope,books,$mdDialog,$state,$http,Lectures,Books,$q,User){
+.controller('BooksCrtl', function BooksCrtl($scope,books,$mdDialog,$state,$http,Lectures,Books,$q,User,$mdToast){
   if(!User.getUser()) {
     $state.go("login");
   }
+
+  $scope.showProgressCircular = null;
 
   $scope.books = [];
   $scope.theresbooks = function theresbooks(){
@@ -303,18 +307,46 @@ angular.module('starter', ['ionic', 'ngMaterial'])
     var authorbook = $event.target.getAttribute("data-authorbook");
     Lectures.destroyBookOfLectures();
     Lectures.addBookOfLectures(idbook,namebook,authorbook);
-    $state.go("app.lectures");
+    
+    var namebook = Lectures.getBooksOfLectures().namebook;
+    var authorbook = Lectures.getBooksOfLectures().authorbook;
+    $scope.namebook = namebook;
+    $scope.authorbook = authorbook;
+    $scope.showProgressCircular = idbook;
+    var book=Lectures.getBooksOfLectures().id;
+    var req = [$http.get("http://serviceread.herokuapp.com/lectures/"+book+""),$http.get("http://serviceread.herokuapp.com/isbookcomplete/"+book+"")];
+
+    $q.all(req).then(function succes(requests) {
+      var isbookcomplete = requests[1].data.statusbook; 
+      var lectures = requests[0]; 
+      var dataLectures = [];
+      angular.forEach(lectures.data.lectures, function each(lect){
+        this.push(lect);
+      },dataLectures);
+
+      $state.go("app.lectures",{
+        data: JSON.stringify({isbookcomplete:isbookcomplete,lectures: dataLectures})
+      });
+    });
   };
 
   $scope.showBook = function showBook($event){
     var idbook = $event.target.getAttribute("data-idbook");
+    var requests = [$http.get("http://serviceread.herokuapp.com/statisticsbooks/"+idbook+""),$http.get("http://serviceread.herokuapp.com/lastpagereaded/"+idbook+""),$http.get("http://serviceread.herokuapp.com/pagesbook/ "+idbook+"")];
 
-    $mdDialog.show({
-      controller: 'ShowBookDialog',
-      templateUrl: 'templates/dialogs/books/showbook.html',
-      targetEvent: $event,
-      locals:{idbook:idbook},
-      hasBackdrop: true
+    $scope.showProgressCircular = idbook;
+    $q.all(requests).then(function response(results){
+      var statistics = results[0];
+      var lastpagereaded = results[1];
+      var pagesbook = results[2];
+      $scope.showProgressCircular = false;
+      $mdDialog.show({
+        controller: 'ShowBookDialog',
+        templateUrl: 'templates/dialogs/books/showbook.html',
+        targetEvent: $event,
+        locals:{statistics:statistics,lastpagereaded: lastpagereaded,pagesbook:pagesbook},
+        hasBackdrop: true
+      });
     });
   };
 
@@ -424,30 +456,23 @@ angular.module('starter', ['ionic', 'ngMaterial'])
   };
 })
 .controller('ShowBookDialog', function ShowBookDialog($scope,$mdDialog,$http,locals,$q,$mdToast,User,Books){
-  $scope.hide = function hide(){
-    $mdDialog.hide();
-  };
   $scope.percentageBook = 0;
   $scope.lastpagereaded = 0;
   $scope.pagesbook = 0;
-  $scope.initShowBook = function initShowBook(){
-    /*var requests = [$http.get("http://serviceread.herokuapp.com/statisticsbooks/"+locals.idbook+""),$http.get("http://serviceread.herokuapp.com/lastpagereaded/"+locals.idbook+""),$http.get("http://serviceread.herokuapp.com/pagesbook/ "+locals.idbook+"")] 
-
-    $q.all(requests).then(function response(results){
-      var statistics = results[0];
-      var lastpagereaded = results[1];
-      var pagesbook = results[2];
-
-      if(statistics.data.status == 'ok') {$scope.percentageBook = parseFloat(statistics.data.percentage);}
-      else {$scope.percentageBook = ":("; }
-      
-      if(lastpagereaded.data.status == 'ok') {$scope.lastpagereaded = lastpagereaded.data.pages; } 
-      else {$scope.lastpagereaded = ":(";}
-      if(pagesbook.data.status == 'ok'){ $scope.pagesbook = pagesbook.data.pages;}
-      else {$scope.pagesbook = ":(";}
-
-    });*/
+  
+  if(locals.statistics.data.status == 'ok') {
+    $scope.percentageBook = parseFloat(locals.statistics.data.percentage);
+  }
+  if(locals.lastpagereaded.data.status == 'ok') {
+    $scope.lastpagereaded = locals.lastpagereaded.data.pages;
+  }
+  if(locals.pagesbook.data.status == 'ok') {
+    $scope.pagesbook = locals.pagesbook.data.pages;
+  }
+  $scope.hide = function hide(){
+    $mdDialog.hide();
   };
+  
   $scope.deleteBook = function deleteBook(){
     var iduser = User.getUser().id;
     
@@ -480,17 +505,17 @@ angular.module('starter', ['ionic', 'ngMaterial'])
     });
   };
 })
-.controller('LecturesCrtl', function LecturesCrtl($scope,$http,Lectures,$mdDialog,LectureState,$q,Books,User,$state,Lectures){
+.controller('LecturesCrtl', function LecturesCrtl($scope,$http,Lectures,$mdDialog,LectureState,$q,Books,User,$state,Lectures,$stateParams){
   if(!User.getUser()) {
     $state.go("login");
   }
   $scope.back = function back(){
     window.history.back();
   };
-
-  $scope.lectures=[];
-  
-  $scope.isbookcomplete = 0;
+  var parseParams = JSON.parse($stateParams.data);
+  $scope.lectures= parseParams.lectures;
+  console.log()
+  $scope.isbookcomplete = Number(parseParams.isbookcomplete);
   $scope.namebook = null;
   
   $scope.$watch(function callback(){
@@ -528,24 +553,7 @@ angular.module('starter', ['ionic', 'ngMaterial'])
     });
   };
 
-  $scope.initlectures = function initlectures(){
-    var namebook = Lectures.getBooksOfLectures().namebook;
-    var authorbook = Lectures.getBooksOfLectures().authorbook;
-    $scope.namebook = namebook;
-    $scope.authorbook = authorbook;
-    var book=Lectures.getBooksOfLectures().id;
-    var req = [$http.get("http://serviceread.herokuapp.com/lectures/"+book+""),$http.get("http://serviceread.herokuapp.com/isbookcomplete/"+book+"")];
-
-    $q.all(req).then(function succes(requests) {
-      var isbookcomplete = requests[1].data.statusbook; 
-      var lectures = requests[0]; 
-      $scope.isbookcomplete = Number(isbookcomplete);
-      angular.forEach(lectures.data.lectures, function each(lect){
-        this.push(lect); 
-      },$scope.lectures);
-    });
-  };
-  
+   
   $scope.book_statics = function book_statics(ev){
     var idlecture = ev.target.getAttribute("data-idlecture");
     var idbook = ev.target.getAttribute("data-idbook");
